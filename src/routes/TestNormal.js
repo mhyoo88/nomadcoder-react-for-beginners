@@ -10,7 +10,7 @@ function TestNormal({ allUsers, changeState }) {
 
   useEffect(() => {
     getNormalUsers();
-  }, []);
+  }, [changeState]);
 
   return (
     <>

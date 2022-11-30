@@ -37,6 +37,7 @@ function Home() {
       state: "danger",
     },
   ];
+
   const [allUsers, setAllUsers] = useState([]);
 
   const getUsers = () => {

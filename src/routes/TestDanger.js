@@ -10,7 +10,7 @@ function TestDanger({ allUsers, changeState }) {
 
   useEffect(() => {
     getDangerUsers();
-  }, []);
+  }, [changeState]);
 
   return (
     <>
