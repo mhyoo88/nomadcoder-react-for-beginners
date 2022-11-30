@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Movie from "../component/Movie";
+import styles from "./Home.module.css";
 
 function Home() {
   const [loading, setLoading] = useState(true);
@@ -19,11 +20,13 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
       {loading ? (
-        <h1>loading...</h1>
+        <h1 className={styles.loader}>
+          <span>Loading...</span>
+        </h1>
       ) : (
-        <div>
+        <div className={styles.movies}>
           {movies.map((movie) => (
             <Movie //부모 컴포넌트에서 자식 컴포넌트로 정보를 전달 할때는 Prop을 사용한다.
               key={movie.id}

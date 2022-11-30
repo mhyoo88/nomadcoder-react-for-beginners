@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import TestComponent from "../component/TestComponent";
+import TestDanger from "./TestDanger";
+import TestNormal from "./TestNormal";
+import "./Test.css";
 
 function Home() {
   const [loading, setLoading] = useState(true);
-  const [normalUsers, setNormalUsers] = useState([]);
-  //async await (모던한 방식 - 짧은 버전)
   const users = [
     {
       id: 1,
@@ -14,31 +14,47 @@ function Home() {
     {
       id: 2,
       name: "username2",
-      state: "warning",
+      state: "normal",
     },
     {
       id: 3,
       name: "username3",
-      state: "danger",
+      state: "normal",
     },
     {
       id: 4,
       name: "노멀이",
       state: "normal",
     },
+    {
+      id: 5,
+      name: "보통이",
+      state: "normal",
+    },
+    {
+      id: 6,
+      name: "댄저",
+      state: "danger",
+    },
   ];
+  const [allUsers, setAllUsers] = useState([]);
 
   const getUsers = () => {
-    const normalUser = users.filter((user) => user.state === "normal");
-    setNormalUsers(normalUser);
+    setAllUsers(users);
     setLoading(false);
   };
-
-  console.log(normalUsers);
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  const changeState = (id, state) => {
+    id = Number(id);
+    const target = users.find((target) => target.id === id);
+    target.state = state;
+    setAllUsers(users);
+    console.log(users);
+  };
 
   return (
     <div>
@@ -46,14 +62,12 @@ function Home() {
         <h1>loading...</h1>
       ) : (
         <div>
-          {normalUsers.map((user) => (
-            <TestComponent //부모 컴포넌트에서 자식 컴포넌트로 정보를 전달 할때는 Prop을 사용한다.
-              key={user.id}
-              id={user.id}
-              name={user.name}
-              state={user.state}
-            />
-          ))}
+          <div style={{ border: "1px solid green" }}>
+            <TestNormal allUsers={allUsers} changeState={changeState} />
+          </div>
+          <div style={{ border: "1px solid red" }}>
+            <TestDanger allUsers={allUsers} changeState={changeState} />
+          </div>
         </div>
       )}
     </div>
